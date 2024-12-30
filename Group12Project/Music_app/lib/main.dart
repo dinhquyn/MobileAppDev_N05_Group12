@@ -8,68 +8,81 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Layout Flutter'),
-        // ),
-        body: Column(
-          children: [
-            // Header
-            Container(
-              padding: EdgeInsets.all(16),
-              color: Colors.blueGrey,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'Logo',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
-                ),
-              ),
-            ),
+      home: HomeScreen(),
+    );
+  }
+}
 
-            // Body
-            Expanded(
-              child: Container(
-                color: Colors.grey[200],
-                child: Center(
-                  child: Text(
-                    'Body Content',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-            ),
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-            // Footer
-            Container(
-              padding: EdgeInsets.all(16),
-              color: Colors.blueGrey,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceAround, // Căn đều các text
-                children: [
-                  Text(
-                    'Trang chủ',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Text(
-                    'Danh sách phát nhạc',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Text(
-                    'Cá nhân',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Text(
-                    'Cài đặt',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ],
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  // Danh sách bài hát
+  final List<Map<String, String>> _songs = [
+    {'title': 'Em của ngày hôm qua', 'artist': 'Sơn Tùng MTP'},
+    {'title': 'Mất kết nối', 'artist': 'Dương Domic'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Danh sách bài hát'),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: ListView.builder(
+        itemCount: _songs.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: ListTile(
+              leading: Icon(Icons.music_note, color: Colors.blue),
+              title: Text(
+                _songs[index]['title']!,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              subtitle: Text(
+                _songs[index]['artist']!,
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              ),
+              trailing: Icon(Icons.play_arrow, color: Colors.green),
+              onTap: () {},
             ),
-          ],
-        ),
+          );
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        selectedItemColor: Colors.blue, // Màu mục được chọn
+        unselectedItemColor: Colors.grey, // Màu mục không được chọn
+        backgroundColor: Colors.white, // Màu nền thanh điều hướng
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.queue_music),
+            label: 'Danh sách phát nhạc',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Cá nhân',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Cài đặt',
+          ),
+        ],
       ),
     );
   }
