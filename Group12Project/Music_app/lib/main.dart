@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,68 +9,63 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Layout Flutter'),
-        // ),
-        body: Column(
-          children: [
-            // Header
-            Container(
-              padding: EdgeInsets.all(16),
-              color: Colors.blueGrey,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'Logo',
-                  style: TextStyle(fontSize: 24, color: Colors.white),
-                ),
-              ),
-            ),
+      home: UserGridScreen(),
+    );
+  }
+}
 
-            // Body
-            Expanded(
-              child: Container(
-                color: Colors.grey[200],
-                child: Center(
-                  child: Text(
-                    'Body Content',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-            ),
+class UserGridScreen extends StatelessWidget {
+  final List<User> userList = [
+    User(username: "Thanh", password: "1234", role: "Admin"),
+    User(username: "Dung", password: "5678", role: "Editor"),
+    User(username: "Viet", password: "90qw", role: "Viewer"),
+    User(username: "Vinh", password: "erty", role: "Viewer"),
+    User(username: "Hieu", password: "uiop", role: "Viewer"),
+  ];
 
-            // Footer
-            Container(
-              padding: EdgeInsets.all(16),
-              color: Colors.blueGrey,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceAround, // Căn đều các text
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User GridView'),
+        backgroundColor: Colors.teal,
+      ),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: userList.length,
+        itemBuilder: (context, index) {
+          final user = userList[index];
+          return Card(
+            elevation: 4,
+            color: Colors.blue[50],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Trang chủ',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    'Username: ${user.username}',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
+                  SizedBox(height: 8),
                   Text(
-                    'Danh sách phát nhạc',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    'Password: ${user.password}',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
+                  SizedBox(height: 8),
                   Text(
-                    'Cá nhân',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Text(
-                    'Cài đặt',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    'Role: ${user.role}',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
