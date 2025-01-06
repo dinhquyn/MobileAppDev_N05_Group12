@@ -1,8 +1,9 @@
 # User GridView App
 Hiển thị danh sách người dùng theo dạng GridView
 
-# Code gồm
-- `User.dart':
+## Code gồm
+### File `User.dart`
+```dart
 class User {
   String username;
   String password;
@@ -15,8 +16,10 @@ class User {
     return 'User(username: $username, role: $role)';
   }
 }
+```
     
-- 'main.dart':
+### File `main.dart`
+```dart
 import 'package:flutter/material.dart';
 import 'user.dart';
 
@@ -89,6 +92,7 @@ class UserGridScreen extends StatelessWidget {
     );
   }
 }
+```
 
 # Ảnh chụp màn hình
 ![Giao diện](images/MobileAppScreen.png)
