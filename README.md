@@ -1,20 +1,20 @@
 # User GridView App
 Hiển thị danh sách người dùng theo dạng GridView
 
-# Project gồm
+# Code gồm
 - `User.dart':
-    class User {
-        String username;
-        String password;
-        String role;
+class User {
+  String username;
+  String password;
+  String role;
 
-        User({required this.username, required this.password, required this.role});
+  User({required this.username, required this.password, required this.role});
 
-        @override
-        String toString() {
-            return 'User(username: $username, role: $role)';
-        }
-    }
+  @override
+  String toString() {
+    return 'User(username: $username, role: $role)';
+  }
+}
     
 - 'main.dart':
 import 'package:flutter/material.dart';
@@ -92,7 +92,4 @@ class UserGridScreen extends StatelessWidget {
 
 # Ảnh chụp màn hình
 ![Giao diện](images/MobileAppScreen.png)
-
-# Hướng dẫn chạy
-cd Group12Project/Music_app
-flutter run -d web-server --web-port=8080
+![Giao diện khi thu nhỏ](images/Screenzoom-out.png)
