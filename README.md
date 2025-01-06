@@ -95,5 +95,7 @@ class UserGridScreen extends StatelessWidget {
 ```
 
 # Ảnh chụp màn hình
+- Giao diện trên Web:
 ![Giao diện](images/MobileAppScreen.png)
+- Giao diện khi thu nhỏ:
 ![Giao diện khi thu nhỏ](images/Screenzoom-out.png)
