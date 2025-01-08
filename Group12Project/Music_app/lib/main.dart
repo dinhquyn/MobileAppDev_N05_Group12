@@ -4,7 +4,7 @@ void main() {
   runApp(MyApp());
 }
 
-class RecipeScreen extends StatelessWidget {
+class InfoSongScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +138,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RecipeScreen(),
+      home: InfoSongScreen(),
     );
   }
 }
