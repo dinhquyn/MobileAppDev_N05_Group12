@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'song.dart';
 
 class InfoSongScreen extends StatelessWidget {
@@ -26,7 +27,8 @@ class InfoSongScreen extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 32),
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 32, bottom: 32),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -66,7 +68,8 @@ class InfoSongScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Text(
                             '${song.review} Reviews',
-                            style: TextStyle(fontSize: 16, color: Colors.black87),
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.black87),
                           ),
                         ],
                       ),
@@ -74,9 +77,12 @@ class InfoSongScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _buildInfoColumn(Icons.access_time, 'Thời lượng:', '${song.time} phút'),
-                          _buildInfoColumn(Icons.calendar_today, 'Phát hành:', '${song.date}'),
-                          _buildInfoColumn(Icons.headphones, 'Lượt nghe:', '${song.view}'),
+                          _buildInfoColumn(Icons.access_time, 'Thời lượng:',
+                              '${song.time} phút'),
+                          _buildInfoColumn(Icons.calendar_today, 'Phát hành:',
+                              '${song.date}'),
+                          _buildInfoColumn(
+                              Icons.headphones, 'Lượt nghe:', '${song.view}'),
                         ],
                       ),
                     ],
