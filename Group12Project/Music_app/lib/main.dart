@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import'InfoSongScreen.dart';
+import 'InfoSongScreen.dart';
+import 'song.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: InfoSongScreen(),
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
     );
   }
 }
@@ -22,12 +24,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  // Danh sách bài hát
-  final List<Map<String, String>> _songs = [
-    {'title': 'Em của ngày hôm qua', 'artist': 'Sơn Tùng MTP'},
-    {'title': 'Mất kết nối', 'artist': 'Dương Domic'},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,22 +32,31 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blueGrey,
       ),
       body: ListView.builder(
-        itemCount: _songs.length,
+        itemCount: songList.length,
         itemBuilder: (context, index) {
+          final song = songList[index];
           return Card(
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               leading: Icon(Icons.music_note, color: Colors.blue),
               title: Text(
-                _songs[index]['title']!,
+                song.songname,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                _songs[index]['artist']!,
+                song.singer,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
               trailing: Icon(Icons.play_arrow, color: Colors.green),
-              onTap: () {},
+              onTap: () {
+                // Điều hướng tới InfoSongScreen và truyền dữ liệu bài hát
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InfoSongScreen(song: song),
+                  ),
+                );
+              },
             ),
           );
         },
