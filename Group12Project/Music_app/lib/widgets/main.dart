@@ -15,3 +15,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class MussicApp extends StatelessWidget {
+  const MussicApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
