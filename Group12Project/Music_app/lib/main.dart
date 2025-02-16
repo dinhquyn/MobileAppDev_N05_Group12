@@ -2,6 +2,7 @@ import 'package:appdev/data/repository/repository.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var repository = DefaultRepository();
   var songs = await repository.loadData();
   if (songs != null) {
