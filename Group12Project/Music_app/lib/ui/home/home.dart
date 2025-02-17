@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../discovery/discovery.dart';
+import '../now_playing/playing.dart';
 import '../settings/settings.dart';
 import '../home/viewmodel.dart';
 import '../user/user.dart';
@@ -18,7 +19,8 @@ class MusicApp extends StatelessWidget {
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
     ),
-      home: MusicHomePage(),
+      home: const MusicHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -154,6 +156,42 @@ class _HomeTabPageState extends State<HomeTabPage> {
       });
     });
   }
+
+  void showBottomSheet(){
+    showModalBottomSheet(context: context, builder: (context) {
+      return ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        child: Container(
+          height: 400,
+            color: Colors.grey,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Modal Bottom Sheet'),
+                  ElevatedButton
+                    (onPressed: () => Navigator.pop(context),
+                    child: const Text('Close Bottom Sheet'),
+                  ),
+                ],
+              ),
+            ),
+        ),
+      );
+    });
+  }
+  // điều hướng
+  void navigate(Song song) {
+    Navigator.push(context,
+      CupertinoPageRoute(builder: (context) {
+        return NowPlaying(
+          songs: songs,
+          playingSong: song,
+        );
+      })
+    );
+  }
 }
 
 class _SongItemSection extends StatelessWidget {
@@ -191,8 +229,13 @@ class _SongItemSection extends StatelessWidget {
       subtitle: Text(song.artist),
       trailing: IconButton(
           icon: const Icon(Icons.more_horiz),
-          onPressed: () {}
+          onPressed: () {
+            parent.showBottomSheet();
+          }
       ),
+      onTap: () {
+        parent.navigate(song);
+      },
     );
   }
 }
