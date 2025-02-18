@@ -7,12 +7,26 @@ Phan Văn Tình 22010122
 Tạ Văn Thanh 22010161
 
 ## Introduction
-Ứng dụng nghe nhạc số cơ bản, người dùng sẽ có các chức năng nghe và phát nhạt, tạo danh sách các bài hát  
-![image](https://github.com/user-attachments/assets/43f5369b-6e99-40cd-906c-150525612188)
+Ứng dụng nghe nhạc cơ bản, người dùng sẽ có các chức năng nghe và phát nhạc, tạo danh sách các bài hát  
+### Home screen
+![image](assets/homescreen.png)
+### Discovery screen
+![image](assets/discoveryscreen.png)
+### Account screen
+![image](assets/accountscreen.png)
+### Setting screen
+![image](assets/settingscreen.png)
+### Dark mode
+<p align="center">
+  <img src="homesdm.png" alt="Home screen" width="22%">
+  <img src="discoverydm.png" alt="Discovery screen" width="22%">
+  <img src="accountdm.png" alt="Account screen" width="22%">
+  <img src="settingdm.png" alt="Setting screen" width="22%">
+</p>
 
 # Structural Diagram
 ## UML diagram 
-![image](https://github.com/user-attachments/assets/e0fc8ef5-aadf-42d5-80b5-761dd3621475)
+![image](assets/umldia.png)
 ## Sequence diagram
 Chức năng tạo danh sách bài hát
 
@@ -84,47 +98,56 @@ Chức năng lặp lại bài hát
 
 Class User {
   int UserId;
-  
+
   String name;
-  
-  String email;
-},
-
-
-Class Playlist{
-  List<Track> tracks = []; 
-  
-  int PlayId;
-  
-  String Namesong;
-  
-  String Author;
-  
-  String description;
-  
-  DateTime createdAt;
-  
-  DateTime updatedAt;      
-  
-  bool repeat = false;   
-  
-  bool isPlaying = false;         
 }
 
 
-class Song {
+Class Playlist{  
+  int playlistId;
+
+  int UserID;
+
+  String playlistName;
+  
+  List<Song> songs;       
+}
+
+
+Class Song {
+  String ID;
+  
   String title;         
   
   String artist;   
   
   int duration;    
   
-  String genre;    
-  
-  int releaseYear;   
+  String image;    
   
   String album;        
   
-  String audioFormat;  
-  
-  }
+  String source;  
+}
+
+Class Player{
+  Song currentSong;
+
+  int volume;
+
+  boolean isPlaying;
+}
+
+Class Album{
+  int albumID;
+
+  String albumName;
+
+  String artist;
+
+  List<Song> songs;
+}
+
+Class PlaylistManager{
+  List<Playlist> playlists;
+}
