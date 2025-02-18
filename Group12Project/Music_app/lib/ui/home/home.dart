@@ -1,12 +1,11 @@
-import 'package:appdev/ui/discovery/discovery.dart';
-import 'package:appdev/ui/settings/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Import provider
+import '../discovery/discovery.dart';
 import '../now_playing/playing.dart';
 import '../settings/settings.dart';
 import '../home/viewmodel.dart';
 import '../user/user.dart';
+
 import '../../data/model/song.dart';
 
 class MusicApp extends StatelessWidget {
@@ -14,29 +13,14 @@ class MusicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Lấy trạng thái theme từ ThemeProvider
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       title: 'MusicApp',
-      debugShowCheckedModeBanner: false,
-      // Sử dụng themeMode dựa theo trạng thái của ThemeProvider
-      themeMode: themeProvider.themeMode,
-      // Định nghĩa giao diện cho chủ đề sáng
       theme: ThemeData(
-        brightness: Brightness.light,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // Định nghĩa giao diện cho chủ đề tối
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 29, 26, 218),
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
       home: const MusicHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -49,9 +33,9 @@ class MusicHomePage extends StatefulWidget {
 }
 
 class _MusicHomePageState extends State<MusicHomePage> {
-  final List<Widget> _tabs = [
+  final List<Widget> _tabs =[
     const HomeTab(),
-    const DiscoveryPage(),
+    const DiscoveryTab(),
     const AccountTab(),
     const SettingsTab(),
   ];
@@ -88,6 +72,7 @@ class HomeTab extends StatelessWidget {
   }
 }
 
+
 class HomeTabPage extends StatefulWidget {
   const HomeTabPage({super.key});
 
@@ -119,6 +104,8 @@ class _HomeTabPageState extends State<HomeTabPage> {
     _viewModel.songStream.close();
     super.dispose();
   }
+
+
 
   Widget getBody() {
     bool showLoading = songs.isEmpty;
@@ -160,54 +147,49 @@ class _HomeTabPageState extends State<HomeTabPage> {
     );
   }
 
+
   void observeData() {
-    _viewModel.songStream.stream.listen((songList) {
+    _viewModel.songStream.stream.listen((
+        songList) {
       setState(() {
         songs.addAll(songList);
       });
     });
   }
 
-  void showBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          child: Container(
-            height: 400,
-            color: Colors.grey,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('Modal Bottom Sheet'),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Close Bottom Sheet'),
-                  ),
-                ],
-              ),
+  void showBottomSheet(){
+    showModalBottomSheet(context: context, builder: (context) {
+      return ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        child: Container(
+          height: 400,
+          color: Colors.grey,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('Modal Bottom Sheet'),
+                ElevatedButton
+                  (onPressed: () => Navigator.pop(context),
+                  child: const Text('Close Bottom Sheet'),
+                ),
+              ],
             ),
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
-
-  // Điều hướng
+  // điều hướng
   void navigate(Song song) {
-    Navigator.push(
-      context,
-      CupertinoPageRoute(
-        builder: (context) {
+    Navigator.push(context,
+        CupertinoPageRoute(builder: (context) {
           return NowPlaying(
             songs: songs,
             playingSong: song,
           );
-        },
-      ),
+        })
     );
   }
 }
@@ -229,27 +211,27 @@ class _SongItemSection extends StatelessWidget {
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: FadeInImage.assetNetwork(
-          placeholder: 'assets/ITunes_logo.svg.png',
+        child: FadeInImage.assetNetwork(placeholder: 'assets/ITunes_logo.svg.png',
           image: song.image,
           width: 48,
           height: 48,
-          imageErrorBuilder: (context, error, stackTrace) {
-            return Image.asset(
-              'assets/ITunes_logo.svg.png',
+          imageErrorBuilder: (context, error, stackTrace){
+            return Image.asset('ITunes_logo.svg.png',
               width: 48,
               height: 48,
             );
           },
         ),
       ),
-      title: Text(song.title),
+      title: Text(
+          song.title
+      ),
       subtitle: Text(song.artist),
       trailing: IconButton(
-        icon: const Icon(Icons.more_horiz),
-        onPressed: () {
-          parent.showBottomSheet();
-        },
+          icon: const Icon(Icons.more_horiz),
+          onPressed: () {
+            parent.showBottomSheet();
+          }
       ),
       onTap: () {
         parent.navigate(song);
@@ -257,3 +239,4 @@ class _SongItemSection extends StatelessWidget {
     );
   }
 }
+
