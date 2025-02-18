@@ -10,15 +10,15 @@ Tạ Văn Thanh 22010161
 Ứng dụng nghe nhạc cơ bản, người dùng sẽ có các chức năng nghe và phát nhạc, tạo danh sách các bài hát  
 ### UI
 <p align="center">
-  <img src="images/homescreen.png" alt="Home screen" width="22%">
-  <img src="images/discoveryscreen.png" alt="Discovery screen" width="22%">
-  <img src="images/accountscreen.png" alt="Account screen" width="22%">
-  <img src="images/settingscreen.png" alt="Setting screen" width="22%">
+  <img src="images/home.png" alt="Home screen" width="22%">
+  <img src="images/discovery.png" alt="Discovery screen" width="22%">
+  <img src="images/account.png" alt="Account screen" width="22%">
+  <img src="images/setting.png" alt="Setting screen" width="22%">
 </p>
 
 ### Dark mode
 <p align="center">
-  <img src="images/homedm.png" alt="Home screen dark mode" width="22%">
+  <img src="images/homedm.jpg" alt="Home screen dark mode" width="22%">
   <img src="images/discoverydm.png" alt="Discovery screen dark mode" width="22%">
   <img src="images/accountdm.png" alt="Account screen dark mode" width="22%">
   <img src="images/settingdm.png" alt="Setting screen dark mode" width="22%">
