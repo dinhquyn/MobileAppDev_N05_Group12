@@ -164,6 +164,27 @@ class _HomeTabPageState extends State<HomeTabPage> {
     });
   }
 
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 2),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
+  }
+
   void showBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -270,6 +291,12 @@ class _HomeTabPageState extends State<HomeTabPage> {
                         label: 'Yêu thích',
                         onTap: () {
                           favoriteProvider.toggleFavorite(songs[_selectedItemIndex]);
+                          _showSnackBar(
+                            context,
+                            favoriteProvider.isFavorite(songs[_selectedItemIndex])
+                                ? 'Đã thêm "${songs[_selectedItemIndex].title}" vào danh sách yêu thích'
+                                : 'Đã xóa "${songs[_selectedItemIndex].title}" khỏi danh sách yêu thích',
+                          );
                           Navigator.pop(context);
                         },
                       );
