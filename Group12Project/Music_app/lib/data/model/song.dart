@@ -11,13 +11,13 @@ class Song {
 
   factory Song.fromJson(Map<String, dynamic> map) {
     return Song(
-      id: map['id'],
-      title: map['title'],
-      album: map['album'],
-      artist: map['artist'],
-      source: map['source'],
-      image: map['image'],
-      duration: map['duration'],
+      id: map['id'] ?? '',
+      title: map['title'] ?? '',
+      album: map['album'] ?? '',
+      artist: map['artist'] ?? '',
+      source: map['source'] ?? '',
+      image: map['image'] ?? '',
+      duration: map['duration'] ?? 0,
     );
   }
 
@@ -40,5 +40,17 @@ class Song {
   @override
   String toString() {
     return 'Song{id: $id, title: $title, album: $album, artist: $artist, source: $source, image: $image, duration: $duration}';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'artist': artist,
+      'album': album,
+      'image': image,
+      'source': source,
+      'duration': duration,
+    };
   }
 }

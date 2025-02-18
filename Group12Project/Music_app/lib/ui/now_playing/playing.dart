@@ -4,9 +4,11 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/model/song.dart';
 import 'audio_player_manager.dart';
+import '../../data/provider/favorite_provider.dart';
 
 class NowPlaying extends StatelessWidget {
   const NowPlaying({super.key, required this.playingSong, required this.songs});
@@ -44,7 +46,9 @@ class _NowPlayingPageState extends State<NowPlayingPage>
   late double _currentAnimationPosition = 0.0;
   bool _isShuffle = false;
   late LoopMode _loopMode;
-
+  final double delta = 64;
+  late double radius;
+  late double screenWidth;
 
   @override
   void initState(){
@@ -56,6 +60,14 @@ class _NowPlayingPageState extends State<NowPlayingPage>
       duration: const Duration(seconds: 20),
     );
     _audioPlayerManager = AudioPlayerManager();
+    
+    // Khởi tạo các biến mới
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        screenWidth = MediaQuery.of(context).size.width;
+        radius = (screenWidth - delta) / 2;
+      });
+    });
     
     // Thêm listener để tự động chuyển bài
     _audioPlayerManager.player.playerStateStream.listen((state) {
@@ -79,123 +91,153 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     _loopMode = LoopMode.off;
   }
 
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 2),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // return const Scaffold(
-    //   body: Center(
-    //     child: Text('Now Playing'),
-    //   ),
-    // );
-    final screenWidth = MediaQuery.of(context).size.width;
-    const delta = 64;
-    final radius = (screenWidth - delta) / 2;
-    return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: const Text(
-            'Now Playing',
-          ),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_horiz),
-          ),
-        ),
-        child: Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(_song.album),
-                const SizedBox
-                  (height: 16,
-                ),
-                const Text('_ ___ _'),
-                const SizedBox(
-                  height: 48,
-                ),
-                RotationTransition(turns: Tween(begin: 0.0, end: 1.0).animate(_imageAnimController),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(radius),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/ITunes_logo.svg.png',
-                      image: _song.image,
-                      width: screenWidth - delta,
-                      height: screenWidth - delta,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Image.asset('assets/ITunes_logo.svg.png',
-                          width: screenWidth - delta,
-                          height: screenWidth - delta,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 64, bottom: 16),
-                  child: SizedBox(child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(onPressed: () {},
-                        icon: const Icon(Icons.share_outlined),
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            _song.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color),
-                          ),
-                          const  SizedBox(height: 8,),
-                          Text(
-                            _song.artist,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color),
-                          )
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite_outline),
-                        color: Theme.of(context).colorScheme.primary,
-
-                      )
-                    ],
-                  ),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 0,
-                    left: 24,
-                    right: 24,
-                    bottom: 10,
-                  ),
-                  child: _progressBar(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 0,
-                    left: 24,
-                    right: 24,
-                    bottom: 10,
-                  ),
-                  child: _mediaButtons(),
-                )
-              ],
+    return Consumer<FavoriteProvider>(
+      builder: (context, favoriteProvider, child) {
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: const Text(
+              'Now Playing',
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.more_horiz),
             ),
           ),
-        )
+          child: Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_song.album),
+                  const SizedBox
+                    (height: 16,
+                  ),
+                  const Text('_ ___ _'),
+                  const SizedBox(
+                    height: 48,
+                  ),
+                  RotationTransition(turns: Tween(begin: 0.0, end: 1.0).animate(_imageAnimController),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(radius),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/ITunes_logo.svg.png',
+                        image: _song.image,
+                        width: screenWidth - delta,
+                        height: screenWidth - delta,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset('assets/ITunes_logo.svg.png',
+                            width: screenWidth - delta,
+                            height: screenWidth - delta,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 64, bottom: 16),
+                    child: SizedBox(child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(onPressed: () {},
+                          icon: const Icon(Icons.share_outlined),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              _song.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color),
+                            ),
+                            const  SizedBox(height: 8,),
+                            Text(
+                              _song.artist,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color),
+                            )
+                          ],
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            favoriteProvider.toggleFavorite(_song);
+                            _showSnackBar(
+                              context,
+                              favoriteProvider.isFavorite(_song)
+                                  ? 'Đã thêm "${_song.title}" vào danh sách yêu thích'
+                                  : 'Đã xóa "${_song.title}" khỏi danh sách yêu thích',
+                            );
+                          },
+                          icon: Icon(
+                            favoriteProvider.isFavorite(_song) 
+                                ? Icons.favorite 
+                                : Icons.favorite_outline
+                          ),
+                          color: favoriteProvider.isFavorite(_song)
+                              ? Colors.red
+                              : Theme.of(context).colorScheme.primary,
+                        )
+                      ],
+                    ),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      left: 24,
+                      right: 24,
+                      bottom: 10,
+                    ),
+                    child: _progressBar(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      left: 24,
+                      right: 24,
+                      bottom: 10,
+                    ),
+                    child: _mediaButtons(),
+                  )
+                ],
+              ),
+            ),
+          )
+        );
+      }
     );
   }
 
