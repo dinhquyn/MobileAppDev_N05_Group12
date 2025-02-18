@@ -28,7 +28,7 @@ class SettingsTab extends StatelessWidget {
                   subtitle: const Text('Quản lý thông báo ứng dụng'),
                   trailing: const Icon(Icons.notifications),
                   onTap: () {
-                    // Xử lý khi nhấn vào mục thông báo
+                    
                   },
                 ),
                 
@@ -37,7 +37,7 @@ class SettingsTab extends StatelessWidget {
                   subtitle: const Text('Điều chỉnh chất lượng phát nhạc'),
                   trailing: const Icon(Icons.music_note),
                   onTap: () {
-                    // Xử lý khi nhấn vào mục chất lượng âm thanh
+                    
                   },
                 ),
                 
@@ -46,7 +46,7 @@ class SettingsTab extends StatelessWidget {
                   subtitle: const Text('Quản lý đồng bộ dữ liệu'),
                   trailing: const Icon(Icons.sync),
                   onTap: () {
-                    // Xử lý khi nhấn vào mục đồng bộ
+                    
                   },
                 ),
                 
@@ -55,7 +55,7 @@ class SettingsTab extends StatelessWidget {
                   subtitle: const Text('Phiên bản 1.0.0'),
                   trailing: const Icon(Icons.info),
                   onTap: () {
-                    // Xử lý khi nhấn vào mục thông tin
+                    
                   },
                 ),
               ],

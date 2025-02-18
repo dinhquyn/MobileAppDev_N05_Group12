@@ -32,7 +32,6 @@ class ThemeProvider with ChangeNotifier {
     return _isDarkMode ? _darkTheme : _lightTheme;
   }
 
-  // iTunes-style light theme
   final _lightTheme = ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
