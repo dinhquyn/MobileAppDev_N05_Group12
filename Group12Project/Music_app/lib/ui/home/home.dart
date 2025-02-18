@@ -320,13 +320,17 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   // điều hướng
   void navigate(Song song) {
+    // Cập nhật playlist khi bắt đầu phát
+    final audioManager = AudioPlayerManager();
+    audioManager.updatePlaylist(songs, songs.indexOf(song));
+    
     Navigator.push(context,
-        CupertinoPageRoute(builder: (context) {
-          return NowPlaying(
-            songs: songs,
-            playingSong: song,
-          );
-        })
+      CupertinoPageRoute(builder: (context) {
+        return NowPlaying(
+          songs: songs,
+          playingSong: song,
+        );
+      })
     );
   }
 }

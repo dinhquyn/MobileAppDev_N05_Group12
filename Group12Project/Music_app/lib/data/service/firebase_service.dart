@@ -44,4 +44,15 @@ class FirebaseService {
   Future<void> signOut() async {
     await _auth.signOut();
   }
+
+  // Lưu thông tin chi tiết của user
+  Future<void> saveUserData(String userId, Map<String, dynamic> userData) async {
+    await _firestore.collection('users').doc(userId).set({
+      'email': userData['email'],
+      'displayName': userData['displayName'],
+      'createdAt': FieldValue.serverTimestamp(),
+      'favorites': [], // Danh sách bài hát yêu thích
+      'playlists': [], // Playlist của user
+    });
+  }
 } 
