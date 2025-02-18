@@ -1,13 +1,13 @@
-import 'package:appdev/ui/home/home.dart';
-import 'package:appdev/ui/settings/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'ui/home/home.dart';
+import 'ui/settings/theme_provider.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
-      child: const MyApp(),
+      child: const MusicApp(),
     ),
   );
 }
@@ -22,11 +22,16 @@ class MyApp extends StatelessWidget {
       title: 'Music App',
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.themeMode,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      ),
       home: const MusicApp(),
     );
   }
 }
-
 

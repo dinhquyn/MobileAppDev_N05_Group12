@@ -6,6 +6,8 @@ import '../now_playing/playing.dart';
 import '../settings/settings.dart';
 import '../home/viewmodel.dart';
 import '../user/user.dart';
+import 'package:provider/provider.dart';
+import '../settings/theme_provider.dart';
 
 import '../../data/model/song.dart';
 
@@ -14,14 +16,15 @@ class MusicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MusicApp',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MusicHomePage(),
-      debugShowCheckedModeBanner: false,
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'MusicApp',
+          theme: themeProvider.getTheme(),
+          home: const MusicHomePage(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

@@ -287,7 +287,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
             _audioPlayerManager.player.play();
           },
             icon: Icons.play_arrow,
-            color: null,
+            color: Colors.deepPurple,
             size: 48,
           );
         } else if(processingSate != ProcessingState.completed) {
@@ -298,7 +298,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
             _pauseRotationAnim();
           },
             icon: Icons.pause,
-            color: null,
+            color: Colors.deepPurple,
             size: 48,
           );
         } else {
