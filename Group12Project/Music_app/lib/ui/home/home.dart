@@ -1,3 +1,4 @@
+import 'package:appdev/ui/now_playing/audio_player_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../discovery/discovery.dart';
@@ -102,6 +103,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
   @override
   void dispose() {
     _viewModel.songStream.close();
+    AudioPlayerManager().dispose();
     super.dispose();
   }
 
@@ -239,4 +241,3 @@ class _SongItemSection extends StatelessWidget {
     );
   }
 }
-

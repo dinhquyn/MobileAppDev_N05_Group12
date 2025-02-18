@@ -1,6 +1,30 @@
 {
     "songs": [
         {
+            "id": "1121430001",
+            "title": "Thủy Triều",
+            "album": "Thủy Triều(Single)",
+            "artist": "Quang Hùng MasterD",
+            "source": "https://thantrieu.com/resources/music/1121430001.mp3",
+            "image": "https://thantrieu.com/resources/arts/1121430001.webp",
+            "duration": 186,
+            "favorite": "false",
+            "counter": 540,
+            "replay": 0
+        },
+        {
+            "id": "1078245050",
+            "title": "Mặt Trời Của Em",
+            "album": "Mặt Trời Của Em(Single)",
+            "artist": "Phương Ly ft JustaTee",
+            "source": "https://thantrieu.com/resources/music/1078245050.mp3",
+            "image": "https://thantrieu.com/resources/arts/1078245050.webp",
+            "duration": 249,
+            "favorite": "false",
+            "counter": 0,
+            "replay": 0
+        },
+        {
             "id": "1121429554",
             "title": "Chạy Về Khóc Với Anh",
             "album": "Chạy Về Khóc Với Anh(Single)",
@@ -10,6 +34,30 @@
             "duration": 224,
             "favorite": "false",
             "counter": 20,
+            "replay": 0
+        },
+        {
+            "id": "1078245051",
+            "title": "Chạy Ngay Đi",
+            "album": "Chạy Ngay Đi(Single)",
+            "artist": "Sơn Tùng M-TP",
+            "source": "https://thantrieu.com/resources/music/1078245051.mp3",
+            "image": "https://thantrieu.com/resources/arts/1078245051.webp",
+            "duration": 248,
+            "favorite": "false",
+            "counter": 0,
+            "replay": 0
+        },
+        {
+            "id": "1078245047",
+            "title": "Nàng Thơ",
+            "album": "25",
+            "artist": "Hoàng Dũng",
+            "source": "https://thantrieu.com/resources/music/1078245047.mp3",
+            "image": "https://thantrieu.com/resources/arts/1078245047.webp",
+            "duration": 255,
+            "favorite": "false",
+            "counter": 0,
             "replay": 0
         },
         {
@@ -1176,18 +1224,7 @@
             "counter": 0,
             "replay": 0
         },
-        {
-            "id": "1078245047",
-            "title": "Nàng Thơ",
-            "album": "25",
-            "artist": "Hoàng Dũng",
-            "source": "https://thantrieu.com/resources/music/1078245047.mp3",
-            "image": "https://thantrieu.com/resources/arts/1078245047.webp",
-            "duration": 255,
-            "favorite": "false",
-            "counter": 0,
-            "replay": 0
-        },
+
         {
             "id": "1078245048",
             "title": "Về Nhà",
@@ -1212,30 +1249,7 @@
             "counter": 0,
             "replay": 0
         },
-        {
-            "id": "1078245050",
-            "title": "Mặt Trời Của Em",
-            "album": "Mặt Trời Của Em(Single)",
-            "artist": "Phương Ly ft JustaTee",
-            "source": "https://thantrieu.com/resources/music/1078245050.mp3",
-            "image": "https://thantrieu.com/resources/arts/1078245050.webp",
-            "duration": 249,
-            "favorite": "false",
-            "counter": 0,
-            "replay": 0
-        },
-        {
-            "id": "1078245051",
-            "title": "Chạy Ngay Đi",
-            "album": "Chạy Ngay Đi(Single)",
-            "artist": "Sơn Tùng M-TP",
-            "source": "https://thantrieu.com/resources/music/1078245051.mp3",
-            "image": "https://thantrieu.com/resources/arts/1078245051.webp",
-            "duration": 248,
-            "favorite": "false",
-            "counter": 0,
-            "replay": 0
-        },
+
         {
             "id": "1078245052",
             "title": "Anh Không Đòi Quà",
@@ -1462,18 +1476,6 @@
             "duration": 250,
             "favorite": "false",
             "counter": 0,
-            "replay": 0
-        },
-        {
-            "id": "1121430001",
-            "title": "Thủy Triều",
-            "album": "Thủy Triều(Single)",
-            "artist": "Quang Hùng MasterD",
-            "source": "https://thantrieu.com/resources/music/1121430001.mp3",
-            "image": "https://thantrieu.com/resources/arts/1121430001.webp",
-            "duration": 186,
-            "favorite": "false",
-            "counter": 540,
             "replay": 0
         },
         {

@@ -55,9 +55,26 @@ class _NowPlayingPageState extends State<NowPlayingPage>
       vsync: this,
       duration: const Duration(seconds: 20),
     );
-    _audioPlayerManager =
-        AudioPlayerManager(songUrl: _song.source);
-    _audioPlayerManager.init();
+    _audioPlayerManager = AudioPlayerManager();
+    
+    // Thêm listener để tự động chuyển bài
+    _audioPlayerManager.player.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        if (_loopMode == LoopMode.one) {
+          _audioPlayerManager.player.seek(Duration.zero);
+          _audioPlayerManager.player.play();
+        } else {
+          _setNextSong();
+        }
+      }
+    });
+    
+    if(_audioPlayerManager.songUrl.compareTo(_song.source) != 0) {
+      _audioPlayerManager.updateSongUrl(_song.source);
+      _audioPlayerManager.prepare(isNewSong: true);
+    } else {
+      _audioPlayerManager.prepare(isNewSong: false);
+    }
     _selectedItemIndex = widget.songs.indexOf(widget.playingSong);
     _loopMode = LoopMode.off;
   }
@@ -184,8 +201,9 @@ class _NowPlayingPageState extends State<NowPlayingPage>
 
   @override
   void dispose() {
-    _audioPlayerManager.dispose();
     _imageAnimController.dispose();
+    // Đảm bảo hủy listener khi widget bị dispose
+    _audioPlayerManager.player.playerStateStream.drain();
     super.dispose();
   }
 
@@ -319,18 +337,24 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     } else if(_selectedItemIndex < widget.songs.length - 1) {
       ++_selectedItemIndex;
     } else if (_loopMode == LoopMode.all && _selectedItemIndex == widget.songs.length -1){
-      _selectedItemIndex =0;
+      _selectedItemIndex = 0;
     }
+    
     if(_selectedItemIndex >= widget.songs.length) {
       _selectedItemIndex = _selectedItemIndex % widget.songs.length;
     }
+    
     final nextSong = widget.songs[_selectedItemIndex];
-    _audioPlayerManager.updateSongUrl(nextSong.source);
-    _resetRotationAnim();
     setState(() {
       _song = nextSong;
+      _audioPlayerManager.updateSongUrl(nextSong.source);
+      _audioPlayerManager.prepare(isNewSong: true);
+      _resetRotationAnim();
+      // Tự động phát bài hát mới
+      _audioPlayerManager.player.play();
     });
   }
+
   void _setPrevSong() {
     if(_isShuffle) {
       var random = Random();
@@ -340,14 +364,19 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     } else if(_loopMode == LoopMode.all && _selectedItemIndex == 0) {
       _selectedItemIndex = widget.songs.length - 1;
     }
+    
     if(_selectedItemIndex < 0) {
-      _selectedItemIndex =(-1 * _selectedItemIndex) % widget.songs.length;
+      _selectedItemIndex = widget.songs.length - 1;
     }
-    final nextSong = widget.songs[_selectedItemIndex];
-    _audioPlayerManager.updateSongUrl(nextSong.source);
-    _resetRotationAnim();
+    
+    final prevSong = widget.songs[_selectedItemIndex];
     setState(() {
-      _song = nextSong;
+      _song = prevSong;
+      _audioPlayerManager.updateSongUrl(prevSong.source);
+      _audioPlayerManager.prepare(isNewSong: true);
+      _resetRotationAnim();
+      // Tự động phát bài hát mới
+      _audioPlayerManager.player.play();
     });
   }
 
@@ -431,4 +460,3 @@ class _MediaButtonControlState extends State<MediaButtonControl> {
     );
   }
 }
-
