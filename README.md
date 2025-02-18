@@ -9,24 +9,24 @@ Tạ Văn Thanh 22010161
 ## Introduction
 Ứng dụng nghe nhạc cơ bản, người dùng sẽ có các chức năng nghe và phát nhạc, tạo danh sách các bài hát  
 ### Home screen
-![image](assets/homescreen.png)
+![image](images/homescreen.png)
 ### Discovery screen
-![image](assets/discoveryscreen.png)
+![image](images/discoveryscreen.png)
 ### Account screen
-![image](assets/accountscreen.png)
+![image](images/accountscreen.png)
 ### Setting screen
-![image](assets/settingscreen.png)
+![image](images/settingscreen.png)
 ### Dark mode
 <p align="center">
-  <img src="homesdm.png" alt="Home screen" width="22%">
-  <img src="discoverydm.png" alt="Discovery screen" width="22%">
-  <img src="accountdm.png" alt="Account screen" width="22%">
-  <img src="settingdm.png" alt="Setting screen" width="22%">
+  <img src="images/homesdm.png" alt="Home screen dark mode" width="22%">
+  <img src="images/discoverydm.png" alt="Discovery screen dark mode" width="22%">
+  <img src="images/accountdm.png" alt="Account screen dark mode" width="22%">
+  <img src="images/settingdm.png" alt="Setting screen dark mode" width="22%">
 </p>
 
 # Structural Diagram
 ## UML diagram 
-![image](assets/umldia.png)
+![image](images/umldia.png)
 ## Sequence diagram
 Chức năng tạo danh sách bài hát
 
