@@ -67,5 +67,6 @@ flutter:
   assets:
     - assets/songs.json
     - assets/ITunes_logo.svg.png
+    - assets/
 
  
