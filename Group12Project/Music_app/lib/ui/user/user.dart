@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../data/service/firebase_service.dart';
 
-class AccountTab extends StatelessWidget {
+class AccountTab extends StatefulWidget {
   const AccountTab({super.key});
+
+  @override
+  State<AccountTab> createState() => _AccountTabState();
+}
+
+class _AccountTabState extends State<AccountTab> {
+  final FirebaseService _firebaseService = FirebaseService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    currentUser = _auth.currentUser;
+    _auth.authStateChanges().listen((User? user) {
+      setState(() {
+        currentUser = user;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +48,25 @@ class AccountTab extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    // User Name
-                    const Text(
-                      'Đinh Xuân Quyền',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    // User Info
+                    if (currentUser != null) ...[
+                      Text(
+                        currentUser?.displayName ?? 'Người dùng',
+                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    // Email
-                    Text(
-                      'dinhquyen888@gmail.com',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                      const SizedBox(height: 8),
+                      Text(
+                        currentUser?.email ?? '',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                        ),
                       ),
-                    ),
+                    ] else ...[
+                      ElevatedButton(
+                        onPressed: () => _showLoginDialog(context),
+                        child: const Text('Đăng nhập'),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -123,25 +148,92 @@ class AccountTab extends StatelessWidget {
                   const Divider(),
                   
                   // Logout
-                  ListTile(
-                    leading: Icon(
-                      Icons.logout,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                    title: Text(
-                      'Đăng xuất',
-                      style: TextStyle(
+                  if (currentUser != null)
+                    ListTile(
+                      leading: Icon(
+                        Icons.logout,
                         color: Theme.of(context).colorScheme.error,
                       ),
+                      title: Text(
+                        'Đăng xuất',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      ),
+                      onTap: () async {
+                        await _firebaseService.signOut();
+                        setState(() {
+                          currentUser = null;
+                        });
+                      },
                     ),
-                    onTap: () {
-                      // TODO: Handle logout
-                    },
-                  ),
                 ],
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showLoginDialog(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    bool isLogin = true;
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: Text(isLogin ? 'Đăng nhập' : 'Đăng ký'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(labelText: 'Mật khẩu'),
+                obscureText: true,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  isLogin = !isLogin;
+                });
+              },
+              child: Text(isLogin ? 'Đăng ký tài khoản mới' : 'Đã có tài khoản'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  if (isLogin) {
+                    await _firebaseService.signIn(
+                      emailController.text,
+                      passwordController.text,
+                    );
+                  } else {
+                    await _firebaseService.signUp(
+                      emailController.text,
+                      passwordController.text,
+                    );
+                  }
+                  Navigator.pop(context);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(e.toString())),
+                  );
+                }
+              },
+              child: Text(isLogin ? 'Đăng nhập' : 'Đăng ký'),
+            ),
+          ],
         ),
       ),
     );

@@ -47,8 +47,8 @@ class _NowPlayingPageState extends State<NowPlayingPage>
   bool _isShuffle = false;
   late LoopMode _loopMode;
   final double delta = 64;
-  late double radius;
-  late double screenWidth;
+  double radius = 0;
+  double screenWidth = 0;
 
   @override
   void initState(){
@@ -61,12 +61,14 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     );
     _audioPlayerManager = AudioPlayerManager();
     
-    // Khởi tạo các biến mới
+    // Cập nhật kích thước sau khi build
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        screenWidth = MediaQuery.of(context).size.width;
-        radius = (screenWidth - delta) / 2;
-      });
+      if (mounted) {
+        setState(() {
+          screenWidth = MediaQuery.of(context).size.width;
+          radius = (screenWidth - delta) / 2;
+        });
+      }
     });
     
     // Thêm listener để tự động chuyển bài
