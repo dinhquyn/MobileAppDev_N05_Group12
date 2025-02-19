@@ -9,6 +9,8 @@
 .history
 .svn/
 migrate_working_dir/
+Group12Project/Music_app/android/app/
+
 
 # IntelliJ related
 *.iml
