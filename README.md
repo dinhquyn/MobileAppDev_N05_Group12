@@ -118,7 +118,7 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
     - `image` (String) – Đường dẫn ảnh bìa.
     - `artist` (String) – Tên nghệ sĩ.
     - `duration` (int) – Thời lượng phát (tính bằng giây).
-  - Mỗi **Song** có thể thuộc về một **Album** (thông qua thuộc tính `albumID` hoặc tham chiếu tới `Album`).
+  - Mỗi **Song** có thể thuộc về một **Album** (thông qua thuộc tính `albumID`).
 
 - **Album**
   - Thuộc tính:
@@ -133,10 +133,10 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
 - **User**
   - Thuộc tính:
     - `UserID` (int) – Mã định danh người dùng.
-    - `name` (String) – Tên người dùng (hoặc thông tin khác tuỳ ý).
+    - `name` (String) – Tên người dùng.
   - Phương thức (gợi ý):
-    - `createPlaylist(...)` – Tạo playlist mới (có thể được gọi qua `PlaylistManager`).
-    - `removePlaylist(...)` – Xoá playlist (có thể được gọi qua `PlaylistManager`).
+    - `createPlaylist(...)` – Tạo playlist mới (được gọi qua `PlaylistManager`).
+    - `removePlaylist(...)` – Xoá playlist (được gọi qua `PlaylistManager`).
 
 - **Playlist**
   - Thuộc tính:
@@ -153,10 +153,10 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
   - Phương thức:
     - `createPlaylist(int playlistID, String name)` – Tạo playlist mới.
     - `deletePlaylist(int playlistID)` – Xoá playlist theo ID.
-    - `addSong(Song song)` – Thêm bài hát vào một playlist (hoặc quản lý việc thêm bài hát).
+    - `addSong(Song song)` – Thêm bài hát vào một playlist.
     - `removeSong(Song song)` – Gỡ bài hát khỏi một playlist.
-    - `skip()` / `next()` – (Tuỳ chọn) Quản lý logic chuyển bài trong playlist.
-    - `repeat()` – (Tuỳ chọn) Kích hoạt chế độ lặp lại.
+    - `skip()` / `next()` – chuyển bài trong playlist.
+    - `repeat()` – Kích hoạt chế độ lặp lại.
 
 - **Player**
   - Thuộc tính:
@@ -168,11 +168,11 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
     - `pause()` – Tạm dừng bài hát đang phát.
     - `skip()` – Bỏ qua bài hát hiện tại.
     - `next()` – Chuyển sang bài tiếp theo (nếu có).
-    - `repeat()` – Bật chế độ lặp lại (một bài hoặc cả playlist tuỳ thiết kế).
+    - `repeat()` – Bật chế độ lặp lạ.
 
 ### Mối Quan Hệ Giữa Các Lớp
 
-- **User** sở hữu nhiều **Playlist** (thông qua `PlaylistManager` hoặc trực tiếp).
+- **User** sở hữu nhiều **Playlist**.
 - **Playlist** chứa nhiều **Song**.
 - **Album** chứa nhiều **Song**.
 - **Player** chịu trách nhiệm phát nhạc, tham chiếu đến bài hát hiện tại (`currentSong`).
