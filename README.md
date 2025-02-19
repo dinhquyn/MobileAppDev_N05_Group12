@@ -84,7 +84,9 @@ git clone https://github.com/dinhquyn/MobileAppDev_N05_Group12.git
 ## UML diagram
 # User Case
 Dưới đây là sơ đồ **Use Case** minh họa các chức năng chính mà **Người dùng (User)** có thể thực hiện trong ứng dụng nghe nhạc:
-![image](Group12Project/Music_app/assets/images/UML images/UserCase.jpg)
+
+
+![image](Group12Project/Music_app/assets/images/UML%20images/UserCase.jpg)
 
 
 - **UC1.1 Create Playlist**: Tạo mới một playlist để quản lý các bài hát yêu thích.
@@ -105,7 +107,7 @@ Dưới đây là sơ đồ **Use Case** minh họa các chức năng chính mà
 Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người dùng** tương tác với hệ thống. Mỗi Use Case sẽ tương ứng với những thao tác cụ thể được triển khai trong mã nguồn (như các nút Play, Pause, Skip, hoặc chức năng tạo playlist, thêm/xóa bài hát, v.v.). 
 
 # Structural Diagram
-![image](Group12Project/Music_app/assets/images/UML images/structural_diagram.jpg)
+![image](Group12Project/Music_app/assets/images/UML%20images/structural_diagram.jpg)
 
 Đây là sơ đồ lớp (structural/class diagram) cho ứng dụng **Music Player**, thể hiện các lớp chính và cách chúng liên kết với nhau:
 
