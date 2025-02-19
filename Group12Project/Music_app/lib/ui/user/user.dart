@@ -74,92 +74,82 @@ class _AccountTabState extends State<AccountTab> {
               const Divider(),
 
               // Account Settings
-              ListView(
+              GridView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 3.0,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
                 children: [
-                  ListTile(
-                    leading: const Icon(Icons.person_outline),
-                    title: const Text('Thông tin cá nhân'),
+                  _buildSettingCard(
+                    icon: Icons.person_outline,
+                    title: 'Thông tin cá nhân',
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       // TODO: Navigate to profile edit
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.favorite_border),
-                    title: const Text('Bài hát yêu thích'),
+                  _buildSettingCard(
+                    icon: Icons.favorite_border,
+                    title: 'Bài hát yêu thích',
                     trailing: const Text('28'),
                     onTap: () {
                       // TODO: Navigate to favorites
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.playlist_play),
-                    title: const Text('Playlist của tôi'),
+                  _buildSettingCard(
+                    icon: Icons.playlist_play,
+                    title: 'Playlist của tôi',
                     trailing: const Text('4'),
                     onTap: () {
                       // TODO: Navigate to playlists
                     },
                   ),
-                  
-                  const Divider(),
-                  
-                  // Account Security
-                  ListTile(
-                    leading: const Icon(Icons.security),
-                    title: const Text('Bảo mật tài khoản'),
+                  _buildSettingCard(
+                    icon: Icons.security,
+                    title: 'Bảo mật tài khoản',
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       // TODO: Navigate to security settings
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.notifications_none),
-                    title: const Text('Thông báo'),
+                  _buildSettingCard(
+                    icon: Icons.notifications_none,
+                    title: 'Thông báo',
                     trailing: Switch(
                       value: true,
                       onChanged: (bool value) {
                         // TODO: Toggle notifications
                       },
                     ),
+                    onTap: () {},
                   ),
-                  
-                  const Divider(),
-                  
-                  // Support & About
-                  ListTile(
-                    leading: const Icon(Icons.help_outline),
-                    title: const Text('Trợ giúp & Hỗ trợ'),
+                  _buildSettingCard(
+                    icon: Icons.help_outline,
+                    title: 'Trợ giúp & Hỗ trợ',
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       // TODO: Navigate to help
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.info_outline),
-                    title: const Text('Về ứng dụng'),
+                  _buildSettingCard(
+                    icon: Icons.info_outline,
+                    title: 'Về ứng dụng',
                     trailing: const Text('v1.0.0'),
                     onTap: () {
                       // TODO: Show about dialog
                     },
                   ),
-                  
-                  const Divider(),
-                  
-                  // Logout
                   if (currentUser != null)
-                    ListTile(
-                      leading: Icon(
-                        Icons.logout,
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                      title: Text(
-                        'Đăng xuất',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      ),
+                    _buildSettingCard(
+                      icon: Icons.logout,
+                      title: 'Đăng xuất',
+                      iconColor: Theme.of(context).colorScheme.error,
+                      textColor: Theme.of(context).colorScheme.error,
                       onTap: () async {
                         await _firebaseService.signOut();
                         setState(() {
@@ -234,6 +224,47 @@ class _AccountTabState extends State<AccountTab> {
               child: Text(isLogin ? 'Đăng nhập' : 'Đăng ký'),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingCard({
+    required IconData icon,
+    required String title,
+    Widget? trailing,
+    Color? iconColor,
+    Color? textColor,
+    required VoidCallback onTap,
+  }) {
+    return Card(
+      elevation: 2,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: iconColor ?? Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (trailing != null) trailing,
+            ],
+          ),
         ),
       ),
     );

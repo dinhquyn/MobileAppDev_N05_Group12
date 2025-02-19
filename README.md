@@ -65,7 +65,7 @@ git clone https://github.com/dinhquyn/MobileAppDev_N05_Group12.git
 <p align="center">
   <img src="Group12Project/Music_app/assets/images/home.png" alt="Home screen" width="22%">
   <img src="Group12Project/Music_app/assets/images/discovery.png" alt="Discovery screen" width="22%">
-  <img src="Group12Project/Music_app/assets/images/user.png" alt="Account screen" width="22%">
+  <img src="Group12Project/Music_app/assets/images/acount.png" alt="Account screen" width="22%">
   <img src="Group12Project/Music_app/assets/images/setting.png" alt="Setting screen" width="22%">
   <img src="Group12Project/Music_app/assets/images/NowPlaying.png" alt="Setting screen" width="22%">
 </p>

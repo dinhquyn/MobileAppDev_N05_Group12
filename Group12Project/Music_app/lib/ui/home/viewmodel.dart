@@ -19,13 +19,13 @@ class MusicAppViewModel {
   }
 
   // Hàm upload data (chỉ chạy 1 lần)
-  Future<void> uploadInitialData() async {
-    // Đọc từ file JSON local
-    // final String jsonString = await rootBundle.loadString('assets/songs.json');
-    // final List<dynamic> jsonData = json.decode(jsonString);
-    // final List<Song> songs = jsonData.map((item) => Song.fromJson(item)).toList();
+  // Future<void> uploadInitialData() async {
+  //   // Đọc từ file JSON local
+  //   // final String jsonString = await rootBundle.loadString('assets/songs.json');
+  //   // final List<dynamic> jsonData = json.decode(jsonString);
+  //   // final List<Song> songs = jsonData.map((item) => Song.fromJson(item)).toList();
     
-    // Upload lên Firestore
-    // await _songService.uploadSongs(songs);
-  }
+  //   // Upload lên Firestore
+  //   // await _songService.uploadSongs(songs);
+  // }
 }
