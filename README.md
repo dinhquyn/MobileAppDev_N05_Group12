@@ -80,32 +80,6 @@ git clone https://github.com/dinhquyn/MobileAppDev_N05_Group12.git
 </p>
 
 ---
-
-## UML diagram
-# User Case
-Dưới đây là sơ đồ **Use Case** minh họa các chức năng chính mà **Người dùng (User)** có thể thực hiện trong ứng dụng nghe nhạc:
-
-
-![image](Group12Project/Music_app/assets/images/UML%20images/UserCase.jpg)
-
-
-- **UC1.1 Create Playlist**: Tạo mới một playlist để quản lý các bài hát yêu thích.
-- **UC1.2 Delete Playlist**: Xoá playlist không còn sử dụng.
-- **UC1.3 Add Song to Playlist**: Thêm bài hát vào playlist.
-- **UC1.4 Remove Song from Playlist**: Gỡ bài hát khỏi playlist.
-
-- **UC2.1 Play Song**: Phát một bài hát đã chọn.
-- **UC2.2 Pause Song**: Tạm dừng bài hát đang phát.
-- **UC2.3 Skip/Next Song**: Bỏ qua bài hát hiện tại, chuyển sang bài tiếp theo.
-- **UC2.4 Repeat Song**: Bật chế độ lặp lại cho bài hát hoặc playlist.
-
-## Nhóm chức năng
-
-- **Nhóm chức năng 1: Quản lý playlist (UC1.x)**: Người dùng có thể tạo, xóa, thêm và gỡ bài hát trong playlist. Các thao tác này giúp tổ chức và tùy biến danh sách nhạc theo sở thích cá nhân.
-- **Nhóm chức năng 2: Điều khiển phát nhạc (UC2.x)**: Người dùng có thể phát, tạm dừng, chuyển bài, hoặc bật chế độ lặp lại. Các chức năng này đảm bảo trải nghiệm nghe nhạc thuận tiện và linh hoạt.
-
-Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người dùng** tương tác với hệ thống. Mỗi Use Case sẽ tương ứng với những thao tác cụ thể được triển khai trong mã nguồn (như các nút Play, Pause, Skip, hoặc chức năng tạo playlist, thêm/xóa bài hát, v.v.). 
-
 # Structural Diagram
 ![image](Group12Project/Music_app/assets/images/UML%20images/structural_diagram.jpg)
 
@@ -177,6 +151,31 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
 - **Album** chứa nhiều **Song**.
 - **Player** chịu trách nhiệm phát nhạc, tham chiếu đến bài hát hiện tại (`currentSong`).
 - **PlaylistManager** đóng vai trò trung gian trong việc tạo/xoá playlist và quản lý danh sách bài hát trong playlist.
+---
+## UML diagram
+# User Case
+Dưới đây là sơ đồ **Use Case** minh họa các chức năng chính mà **Người dùng (User)** có thể thực hiện trong ứng dụng nghe nhạc:
+
+
+![image](Group12Project/Music_app/assets/images/UML%20images/UserCase.jpg)
+
+
+- **UC1.1 Create Playlist**: Tạo mới một playlist để quản lý các bài hát yêu thích.
+- **UC1.2 Delete Playlist**: Xoá playlist không còn sử dụng.
+- **UC1.3 Add Song to Playlist**: Thêm bài hát vào playlist.
+- **UC1.4 Remove Song from Playlist**: Gỡ bài hát khỏi playlist.
+
+- **UC2.1 Play Song**: Phát một bài hát đã chọn.
+- **UC2.2 Pause Song**: Tạm dừng bài hát đang phát.
+- **UC2.3 Skip/Next Song**: Bỏ qua bài hát hiện tại, chuyển sang bài tiếp theo.
+- **UC2.4 Repeat Song**: Bật chế độ lặp lại cho bài hát hoặc playlist.
+
+## Nhóm chức năng
+
+- **Nhóm chức năng 1: Quản lý playlist (UC1.x)**: Người dùng có thể tạo, xóa, thêm và gỡ bài hát trong playlist. Các thao tác này giúp tổ chức và tùy biến danh sách nhạc theo sở thích cá nhân.
+- **Nhóm chức năng 2: Điều khiển phát nhạc (UC2.x)**: Người dùng có thể phát, tạm dừng, chuyển bài, hoặc bật chế độ lặp lại. Các chức năng này đảm bảo trải nghiệm nghe nhạc thuận tiện và linh hoạt.
+
+Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người dùng** tương tác với hệ thống. Mỗi Use Case sẽ tương ứng với những thao tác cụ thể được triển khai trong mã nguồn (như các nút Play, Pause, Skip, hoặc chức năng tạo playlist, thêm/xóa bài hát, v.v.). 
 
 ---
 # Sequence & Activity Diagrams
@@ -184,7 +183,6 @@ Sơ đồ Use Case này cung cấp cái nhìn tổng quan về cách **Người 
 Dưới đây là các **Sequence Diagram** và **Activity Diagram** minh họa cho những chức năng chính trong dự án **Music App**.
 
 ---
-
 ## Sequence Diagram
 
 **Sequence Diagram** thể hiện trình tự (thời gian) của các lời gọi phương thức (messages) giữa các thành phần trong hệ thống khi thực hiện một chức năng cụ thể.
