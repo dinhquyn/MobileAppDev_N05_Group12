@@ -58,7 +58,7 @@ class _AccountTabState extends State<AccountTab> {
                       Text(
                         currentUser?.email ?? '',
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                         ),
                       ),
                     ] else ...[

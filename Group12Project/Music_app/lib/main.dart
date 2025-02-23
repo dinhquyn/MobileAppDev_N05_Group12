@@ -7,6 +7,7 @@ import 'ui/settings/theme_provider.dart';
 import 'data/provider/favorite_provider.dart';
 
 void main() async {
+  ErrorWidget.builder = (FlutterErrorDetails details) => Container();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

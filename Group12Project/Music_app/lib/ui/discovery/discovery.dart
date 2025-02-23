@@ -250,7 +250,7 @@ class _DiscoveryTabState extends State<DiscoveryTab> {
                   Text(
                     song.artist,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                       fontSize: 14,
                     ),
                     maxLines: 1,
@@ -324,7 +324,7 @@ class _DiscoveryTabState extends State<DiscoveryTab> {
                     Text(
                       song.artist,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

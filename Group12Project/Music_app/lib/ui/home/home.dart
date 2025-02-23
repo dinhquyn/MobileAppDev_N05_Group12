@@ -185,131 +185,168 @@ class _HomeTabPageState extends State<HomeTabPage> {
     );
   }
 
-  void showBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  ClipRRect(
+void showBottomSheet() {
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    isScrollControlled: false,
+    builder: (context) {
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Phần bên trái (chi tiết bài hát)
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Tiêu đề bài hát
+                      Text(
+                        songs[_selectedItemIndex].title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1, // Giới hạn số dòng
+                      ),
+                      const SizedBox(height: 8),
+                      // Tên nghệ sĩ
+                      Text(
+                        songs[_selectedItemIndex].artist,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      const SizedBox(height: 8),
+                      // Album
+                      Text(
+                        "Album: ${songs[_selectedItemIndex].album}",
+                        style: const TextStyle(fontSize: 14),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      const SizedBox(height: 8),
+                      // Thời lượng bài hát
+                      Text(
+                        "Thời lượng: ${_formatDuration(songs[_selectedItemIndex].duration)}",
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      const SizedBox(height: 8),
+                      // Đánh giá
+                      Row(
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(
+                              5,
+                              (index) => const Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            "170 Reviews",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      // Các nút tương tác
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ActionButton(
+                            icon: Icons.share,
+                            label: 'Chia sẻ',
+                            iconSize: 18,
+                            fontSize: 10,
+                            padding: 4,
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          ActionButton(
+                            icon: Icons.playlist_add,
+                            label: 'Playlist',
+                            iconSize: 18,
+                            fontSize: 10,
+                            padding: 4,
+                            onTap: () => Navigator.pop(context),
+                          ),
+                          Consumer<FavoriteProvider>(
+                            builder: (context, favoriteProvider, child) {
+                              bool isFav = favoriteProvider.isFavorite(songs[_selectedItemIndex]);
+                              return ActionButton(
+                                icon: isFav ? Icons.favorite : Icons.favorite_border,
+                                label: 'Yêu thích',
+                                iconSize: 18,
+                                fontSize: 10,
+                                padding: 4,
+                                onTap: () {
+                                  favoriteProvider.toggleFavorite(songs[_selectedItemIndex]);
+                                  _showSnackBar(
+                                    context,
+                                    isFav
+                                        ? 'Đã xóa "${songs[_selectedItemIndex].title}" khỏi danh sách yêu thích'
+                                        : 'Đã thêm "${songs[_selectedItemIndex].title}" vào danh sách yêu thích',
+                                  );
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8), // Giảm khoảng cách giữa các phần để tránh tràn
+                // Phần hình ảnh
+                Expanded(
+                  flex: 1, // Giảm flex của phần hình ảnh để tránh tràn
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/ITunes_logo.svg.png',
-                      image: songs[_selectedItemIndex].image,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'assets/ITunes_logo.svg.png',
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          songs[_selectedItemIndex].title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          songs[_selectedItemIndex].artist,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(height: 32),
-              // Thông tin chi tiết
-              InfoRow(
-                icon: Icons.album,
-                label: 'Album',
-                value: songs[_selectedItemIndex].album,
-              ),
-              const SizedBox(height: 16),
-              InfoRow(
-                icon: Icons.timer,
-                label: 'Thời lượng',
-                value: _formatDuration(songs[_selectedItemIndex].duration),
-              ),
-              const SizedBox(height: 16),
-              InfoRow(
-                icon: Icons.music_note,
-                label: 'Nguồn',
-                value: songs[_selectedItemIndex].source.split('/').last,
-              ),
-              const SizedBox(height: 24),
-              // Các nút tương tác
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ActionButton(
-                    icon: Icons.share,
-                    label: 'Chia sẻ',
-                    onTap: () {
-                      // TODO: Implement share
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ActionButton(
-                    icon: Icons.playlist_add,
-                    label: 'Thêm vào playlist',
-                    onTap: () {
-                      // TODO: Implement add to playlist
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Consumer<FavoriteProvider>(
-                    builder: (context, favoriteProvider, child) {
-                      return ActionButton(
-                        icon: favoriteProvider.isFavorite(songs[_selectedItemIndex])
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        label: 'Yêu thích',
-                        onTap: () {
-                          favoriteProvider.toggleFavorite(songs[_selectedItemIndex]);
-                          _showSnackBar(
-                            context,
-                            favoriteProvider.isFavorite(songs[_selectedItemIndex])
-                                ? 'Đã thêm "${songs[_selectedItemIndex].title}" vào danh sách yêu thích'
-                                : 'Đã xóa "${songs[_selectedItemIndex].title}" khỏi danh sách yêu thích',
+                    child: AspectRatio(
+                      aspectRatio: 1.1, // Điều chỉnh tỉ lệ ảnh để không chiếm quá nhiều không gian
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/ITunes_logo.svg.png',
+                        image: songs[_selectedItemIndex].image,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/ITunes_logo.svg.png',
+                            fit: BoxFit.cover,
                           );
-                          Navigator.pop(context);
                         },
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
+
+
+
+
+
 
   String _formatDuration(int seconds) {
     final duration = Duration(seconds: seconds);
@@ -416,7 +453,7 @@ class InfoRow extends StatelessWidget {
           child: Text(
             value,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
         ),
@@ -430,12 +467,18 @@ class ActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
+  final double iconSize;
+  final double fontSize;
+  final double padding;
 
   const ActionButton({
     super.key,
     required this.icon,
     required this.label,
     required this.onTap,
+    this.iconSize = 6,
+    this.fontSize = 6, 
+    this.padding = 6,
   });
 
   @override
@@ -457,7 +500,7 @@ class ActionButton extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 12,
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ],

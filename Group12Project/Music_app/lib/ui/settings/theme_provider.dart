@@ -36,11 +36,9 @@ class ThemeProvider with ChangeNotifier {
     brightness: Brightness.light,
     useMaterial3: true,
     colorScheme: ColorScheme.light(
-      background: Colors.white,
       surface: const Color(0xFFF5F5F7),
       primary: Colors.blue,
       secondary: Colors.grey[300]!,
-      onBackground: Colors.black87,
       onSurface: Colors.black87,
       tertiary: Colors.black87,
       tertiaryContainer: Colors.grey[400],
@@ -56,14 +54,14 @@ class ThemeProvider with ChangeNotifier {
     ),
     dividerColor: Colors.grey[300],
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
-        if (states.contains(MaterialState.selected)) {
+      thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
           return Colors.blue;
         }
         return Colors.grey;
       }),
-      trackColor: MaterialStateProperty.resolveWith<Color>((states) {
-        if (states.contains(MaterialState.selected)) {
+      trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
           return Colors.blue.withOpacity(0.5);
         }
         return Colors.grey.withOpacity(0.5);
@@ -75,16 +73,14 @@ class ThemeProvider with ChangeNotifier {
   final _darkTheme = ThemeData(
     brightness: Brightness.dark,
     useMaterial3: true,
-    colorScheme: ColorScheme.dark(
-      background: const Color(0xFF232326),
-      surface: const Color(0xFF2D2D30),
-      primary: const Color(0xFF60A5FA),
-      secondary: const Color(0xFF3D3D40),
-      onBackground: const Color(0xFFF5F5F7),
-      onSurface: const Color(0xFFF5F5F7),
-      tertiary: const Color(0xFFF5F5F7),
-      tertiaryContainer: const Color(0xFF9CA3AF),
-      error: const Color(0xFFFF6B6B),
+    colorScheme: const ColorScheme.dark(
+      surface: Color(0xFF2D2D30),
+      primary: Color(0xFF60A5FA),
+      secondary: Color(0xFF3D3D40),
+      onSurface: Color(0xFFF5F5F7),
+      tertiary: Color(0xFFF5F5F7),
+      tertiaryContainer: Color(0xFF9CA3AF),
+      error: Color(0xFFFF6B6B),
     ),
     scaffoldBackgroundColor: const Color(0xFF232326),
     appBarTheme: const AppBarTheme(
@@ -103,14 +99,14 @@ class ThemeProvider with ChangeNotifier {
     ),
     dividerColor: const Color(0xFF3D3D40),
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
-        if (states.contains(MaterialState.selected)) {
+      thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
           return const Color(0xFF60A5FA);
         }
         return const Color(0xFF9CA3AF);
       }),
-      trackColor: MaterialStateProperty.resolveWith<Color>((states) {
-        if (states.contains(MaterialState.selected)) {
+      trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
           return const Color(0xFF60A5FA).withOpacity(0.5);
         }
         return const Color(0xFF9CA3AF).withOpacity(0.3);
