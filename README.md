@@ -77,6 +77,7 @@ git clone https://github.com/dinhquyn/MobileAppDev_N05_Group12.git
   <img src="Group12Project/Music_app/assets/images/accountdm.png" alt="Account screen dark mode" width="22%">
   <img src="Group12Project/Music_app/assets/images/settingdm.png" alt="Setting screen dark mode" width="22%">
   <img src="Group12Project/Music_app/assets/images/NowPlayingdm.png" alt="Setting screen" width="22%">
+  <img src="Group12Project/Music_app/assets/images/hình yêu cầu.jpg" alt="Request form Screen" width="22%">
 </p>
 
 ---
